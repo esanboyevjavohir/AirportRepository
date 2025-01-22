@@ -2,6 +2,6 @@
 
 namespace Airways.DataAccess.Repository
 {
-    public interface ITicketRepository : IBaseRepository<Tickets> { }
+    public interface ITicketRepository : IBaseRepository<Ticket> { }
   
 }

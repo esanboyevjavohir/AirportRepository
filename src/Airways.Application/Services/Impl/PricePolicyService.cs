@@ -1,7 +1,9 @@
 ﻿using Airways.Application.Models;
+using Airways.Application.Models.Aicraft;
 using Airways.Application.Models.PricePolycy;
 using Airways.Core.Entity;
 using Airways.DataAccess.Repository;
+using Airways.DataAccess.Repository.Impl;
 using AutoMapper;
 
 namespace Airways.Application.Services.Impl
@@ -17,6 +19,20 @@ namespace Airways.Application.Services.Impl
         {
             _pricepolicyRepository = pricepolicyRepository;
             _mapper = mapper;
+        }
+
+        public async Task<PricePolicyResponceModel> GetByIdAsync(Guid id)
+        {
+            var aircraft = await _pricepolicyRepository.GetFirstAsync(a => a.Id == id);
+            if (aircraft == null) { throw new Exception("Aircraft not found"); }
+
+            return _mapper.Map<PricePolicyResponceModel>(aircraft);
+        }
+
+        public async Task<List<PricePolicyResponceModel>> GetAllAsync()
+        {
+            var res = await _pricepolicyRepository.GetAllAsync(_ => true);
+            return _mapper.Map<List<PricePolicyResponceModel>>(res);
         }
 
         public async Task<IEnumerable<PricePolicyResponceModel>> GetAllByListIdAsync(Guid id,

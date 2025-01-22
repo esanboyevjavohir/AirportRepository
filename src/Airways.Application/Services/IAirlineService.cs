@@ -5,6 +5,9 @@ namespace Airways.Application.Services
 {
     public interface IAirlineService
     {
+        Task<AirlineResponceModel> GetByIdAsync(Guid id);
+        
+        Task<List<AirlineResponceModel>> GetAllAsync();
         Task<CreateAirlineResponceModel> CreateAsync(CreateAirlineModel createTodoItemModel,
       CancellationToken cancellationToken = default);
 

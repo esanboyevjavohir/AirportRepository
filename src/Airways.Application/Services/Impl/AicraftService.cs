@@ -18,6 +18,20 @@ namespace Airways.Application.Services.Impl
             _mapper = mapper;
         }
 
+        public async Task<AicraftResponceModel> GetByIdAsync(Guid id)
+        {
+            var aircraft = await _aicraftrepository.GetFirstAsync(a => a.Id == id);
+            if (aircraft == null) { throw new Exception("Aircraft not found"); }
+
+            return _mapper.Map<AicraftResponceModel>(aircraft);
+        }
+
+        public async Task<List<AicraftResponceModel>> GetAllAsync()
+        {
+            var res = await _aicraftrepository.GetAllAsync(_ => true);
+            return _mapper.Map<List<AicraftResponceModel>>(res);
+        }
+
         public async Task<IEnumerable<AicraftResponceModel>> GetAllByListIdAsync(Guid id,
             CancellationToken cancellationToken = default)
         {
@@ -30,7 +44,7 @@ namespace Airways.Application.Services.Impl
         public async Task<CreateAicraftResponceModel> CreateAsync(CreateAircraftModel createTodoItemModel,
             CancellationToken cancellationToken = default)
         {
-            var todoItem = _mapper.Map<Aicraft>(createTodoItemModel);
+            var todoItem = _mapper.Map<Aircraft>(createTodoItemModel);
 
             return new CreateAicraftResponceModel
             {

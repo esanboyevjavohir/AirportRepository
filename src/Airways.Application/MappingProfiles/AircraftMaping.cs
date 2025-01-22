@@ -8,10 +8,11 @@ namespace Airways.Application.MappingProfiles
     {
         public AircraftMaping()
         {
-            CreateMap<CreateAircraftModel, Aicraft>();
-            CreateMap<UpdateAicraftModel, Aicraft>().ReverseMap();
+            CreateMap<CreateAircraftModel, Aircraft>();
 
-            CreateMap<Aicraft, AicraftResponceModel>();
+            CreateMap<UpdateAicraftModel, Aircraft>().ReverseMap();
+
+            CreateMap<Aircraft, AicraftResponceModel>();
         }
     }
 }

@@ -7,7 +7,6 @@ namespace Airways.DataAccess.Persistence
 {
     public class AutomatedMigration
     {
-
         public static async Task MigrateAsync(IServiceProvider services)
         {
             var context = services.GetRequiredService<DataBaseContext>();

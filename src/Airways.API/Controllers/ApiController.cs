@@ -3,5 +3,5 @@
 namespace Airways.API.Controllers;
 
 [ApiController]
-[Route("api/[controller]")]
+[Route("Api/[controller]")]
 public class ApiController : ControllerBase { }

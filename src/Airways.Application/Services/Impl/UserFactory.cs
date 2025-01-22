@@ -1,4 +1,5 @@
 ﻿namespace Airways.Application.Services.Impl
 {
-    public class UserFactory { }
+    public class UserFactory : IUserFactory
+    { }
 }

@@ -8,10 +8,10 @@ namespace Airways.Application.MappingProfiles
     {
         public TicketMaping()
         {
-            CreateMap<CreateTicketsModel, Tickets>();
-            CreateMap<UpdateTicketModel, Tickets>().ReverseMap();
+            CreateMap<CreateTicketsModel, Ticket>();
+            CreateMap<UpdateTicketModel, Ticket>().ReverseMap();
 
-            CreateMap<Tickets, TicketResponceModel>();
+            CreateMap<Ticket, TicketResponceModel>();
         }
     }
 }

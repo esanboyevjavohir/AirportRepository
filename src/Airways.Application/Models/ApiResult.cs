@@ -1,4 +1,6 @@
-﻿namespace Airways.Application.Models;
+﻿using Airways.Application.Models.Aicraft;
+
+namespace Airways.Application.Models;
 
 public class ApiResult<T>
 {

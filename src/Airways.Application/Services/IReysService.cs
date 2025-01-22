@@ -1,10 +1,13 @@
 ﻿using Airways.Application.Models;
+using Airways.Application.Models.PricePolycy;
 using Airways.Application.Models.Reys;
 
 namespace Airways.Application.Services
 {
     public interface IReysService
     {
+        Task<ReysResponceModel> GetByIdAsync(Guid id);
+        Task<IEnumerable<ReysResponceModel>> GetAllAsync();
         Task<CreateReysResponceModel> CreateAsync(CreateReysModel createTodoItemModel,
       CancellationToken cancellationToken = default);
 

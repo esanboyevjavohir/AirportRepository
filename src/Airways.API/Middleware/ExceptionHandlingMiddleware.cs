@@ -1,4 +1,5 @@
-﻿using Airways.Application.Models;
+﻿using Airways.Application.Exceptions;
+using Airways.Application.Models;
 using Airways.Core.Exceptions;
 using Newtonsoft.Json;
 
@@ -24,7 +25,7 @@ public class ExceptionHandlerMiddlewear
         }
         catch (Exception ex)
         {
-            await HandleException(context, ex);
+            await HandleException(context,ex);
         }
     }
 
@@ -42,10 +43,12 @@ public class ExceptionHandlerMiddlewear
 
         code = ex switch
         {
+            NotFoundException => StatusCodes.Status404NotFound,
             DirectoryNotFoundException => StatusCodes.Status404NotFound,
-            ResourceNotFound => StatusCodes.Status404NotFound,
+            ResourceNotFoundException => StatusCodes.Status404NotFound,
             BadHttpRequestException => StatusCodes.Status400BadRequest,
-
+            UnprocessableRequestException => StatusCodes.Status422UnprocessableEntity,
+            _ => code
         };
 
         var result = JsonConvert.SerializeObject(ApiResult<string>.Failure(errors));

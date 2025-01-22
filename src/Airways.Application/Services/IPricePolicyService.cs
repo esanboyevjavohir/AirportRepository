@@ -5,6 +5,8 @@ namespace Airways.Application.Services
 {
     public interface IPricePolicyService
     {
+        Task<PricePolicyResponceModel> GetByIdAsync(Guid id );
+        Task<List<PricePolicyResponceModel>> GetAllAsync();
         Task<CreatePricePolicyResponceModel> CreateAsync(CreatePricePolicyModel createTodoItemModel,
       CancellationToken cancellationToken = default);
 

@@ -2,30 +2,28 @@
 
 namespace Airways.Core.Entity
 {
-    public class Tickets:BaseEntity,IAuditedEntity
+    public class Ticket : BaseEntity, IAuditedEntity
     {
-      
-        public double price { get; set; }
-        public decimal MaxWeight { get; set; }
+        public decimal MaxCharge { get; set; }
         public decimal AdditionalCharge { get; set; }
-        DateTime OrderTime { get; set; }
+        public DateTime OrderTime { get; set; }
         public int SeatNumber { get; set; }
-        Status status { get; set; }
+        public Status Status { get; set; } = Status.Available;
         public Reys Reys { get; set; }
+        public Guid Reys_id { get; set; }
         public User User { get; set; }
+        public Guid User_id { get; set; }
         public Class Class { get; set; }
-        public PricePolicy PricePolicy { get; set; }
-        public List<Order> orders=new List<Order>();
+        public Guid Class_id { get; set; }
+        public Payment Payment { get; set; }
+        public Guid Payment_id { get; set; }
+        public DateTime? ReservationExpiresOn { get; set; }
         public string? CreatedBy { get; set; }
-
         public DateTime? CreatedOn { get; set; }
-
         public string? UpdatedBy { get; set; }
-
         public DateTime? UpdatedOn { get; set; }
-
     }
-    enum Status
+    public enum Status
     {
         Available,
         Sold

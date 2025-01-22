@@ -1,7 +1,9 @@
 ﻿using Airways.Application.Models;
+using Airways.Application.Models.Aicraft;
 using Airways.Application.Models.Airline;
 using Airways.Core.Entity;
 using Airways.DataAccess.Repository;
+using Airways.DataAccess.Repository.Impl;
 using AutoMapper;
 
 namespace Airways.Application.Services.Impl
@@ -19,6 +21,20 @@ namespace Airways.Application.Services.Impl
             _mapper = mapper;
         }
 
+        public async Task<AirlineResponceModel> GetByIdAsync(Guid id)
+        {
+            var aircraft = await _airlineRepository.GetFirstAsync(a => a.Id == id);
+            if (aircraft == null) { throw new Exception("Aircraft not found"); }
+
+            return _mapper.Map<AirlineResponceModel>(aircraft);
+        }
+
+        public async Task<List<AirlineResponceModel>> GetAllAsync()
+        {
+            var res = await _airlineRepository.GetAllAsync(_ => true);
+            return _mapper.Map<List<AirlineResponceModel>>(res);
+        }
+
         public async Task<IEnumerable<AirlineResponceModel>> GetAllByListIdAsync(Guid id,
             CancellationToken cancellationToken = default)
         {
@@ -31,7 +47,6 @@ namespace Airways.Application.Services.Impl
             CancellationToken cancellationToken = default)
         {
             var todoItem = _mapper.Map<Airline>(createTodoItemModel);
-
 
             return new CreateAirlineResponceModel
             {

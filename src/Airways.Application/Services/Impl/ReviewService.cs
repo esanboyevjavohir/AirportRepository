@@ -4,6 +4,8 @@ using Airways.Core.Entity;
 using Airways.DataAccess.Repository;
 using AutoMapper;
 using Airways.Application.Models.Review;
+using Airways.Application.Models.Aicraft;
+using Airways.DataAccess.Repository.Impl;
 
 namespace Airways.Application.Services.Impl
 {
@@ -20,6 +22,19 @@ namespace Airways.Application.Services.Impl
             _mapper = mapper;
         }
 
+        public async Task<ReviewResponceModel> GetByIdAsync(Guid id)
+        {
+            var aircraft = await _reviewRepository.GetFirstAsync(a => a.Id == id);
+            if (aircraft == null) { throw new Exception("Aircraft not found"); }
+
+            return _mapper.Map<ReviewResponceModel>(aircraft);
+        }
+
+        public async Task<List<ReviewResponceModel>> GetAllAsync()
+        {
+            var res = await _reviewRepository.GetAllAsync(_ => true);
+            return _mapper.Map<List<ReviewResponceModel>>(res);
+        }
         public async Task<IEnumerable<ReviewResponceModel>> GetAllByListIdAsync(Guid id,
             CancellationToken cancellationToken = default)
         {

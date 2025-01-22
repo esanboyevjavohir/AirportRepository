@@ -2,7 +2,7 @@
 
 namespace Airways.DataAccess.Repository;
 
-    public interface IAircraftRepository : IBaseRepository<Aicraft> { }
+    public interface IAircraftRepository : IBaseRepository<Aircraft> { }
     
 
     

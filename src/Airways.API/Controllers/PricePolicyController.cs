@@ -1,5 +1,6 @@
 ﻿using Airways.Application.Models;
 using Airways.Application.Models.Aicraft;
+using Airways.Application.Models.Airline;
 using Airways.Application.Models.PricePolycy;
 using Airways.Application.Services;
 using Airways.Application.Services.Impl;
@@ -15,25 +16,76 @@ namespace Airways.API.Controllers
         {
             _pricepolicyService = pricepolicyService;
         }
-       
-        [HttpPost]
+
+        [HttpGet("GetById/{id}")]
+        public async Task<IActionResult> GetById(Guid id)
+        {
+            try
+            {
+                var response = await _pricepolicyService.GetByIdAsync(id);
+                return Ok(ApiResult<PricePolicyResponceModel>.Success(response));
+            }
+            catch (Exception ex)
+            {
+                return NotFound(new { message = ex.Message });
+            }
+        }
+
+        [HttpGet("GetAll")]
+        public async Task<IActionResult> GetAll()
+        {
+            var responce = await _pricepolicyService.GetAllAsync();
+            return Ok(ApiResult<IEnumerable<PricePolicyResponceModel>>.Success(responce));
+        }
+
+        [HttpPost("Create")]
         public async Task<IActionResult> CreateAsync(CreatePricePolicyModel createUserModel)
         {
-            return Ok(ApiResult<CreatePricePolicyResponceModel>.Success(
-                await _pricepolicyService.CreateAsync(createUserModel)));
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            try
+            {
+                var response = await _pricepolicyService.CreateAsync(createUserModel);
+                return Ok(ApiResult<CreatePricePolicyResponceModel>.Success(response));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
         }
 
-        [HttpPut("{id:guid}")]
+        [HttpPut("Update/{id:guid}")]
         public async Task<IActionResult> UpdateAsync(Guid id, UpdatePricePolicyModel updateUserModel)
         {
-            return Ok(ApiResult<UpdatePricePolicyResponceModel>.Success(
-                await _pricepolicyService.UpdateAsync(id, updateUserModel)));
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            try
+            {
+                var response = await _pricepolicyService.UpdateAsync(id, updateUserModel);
+                return Ok(ApiResult<UpdatePricePolicyResponceModel>.Success(response));
+            }
+            catch (Exception ex)
+            {
+                return NotFound(new { message = ex.Message });
+            }
         }
 
-        [HttpDelete("{id:guid}")]
+        [HttpDelete("Delete/{id:guid}")]
         public async Task<IActionResult> DeleteAsync(Guid id)
         {
-            return Ok(ApiResult<BaseResponceModel>.Success(await _pricepolicyService.DeleteAsync(id)));
+            try
+            {
+                var result = await _pricepolicyService.DeleteAsync(id);
+                return Ok(ApiResult<BaseResponceModel>.Success(result));
+            }
+            catch (Exception ex)
+            {
+                return NotFound(new { message = ex.Message });
+            }
         }
     }
 }

@@ -1,11 +1,10 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Airways.Core.Common;
+using System.ComponentModel.DataAnnotations;
 
 namespace Airways.Application.Models.Airline
 {
-    public class AirlineResponceModel
+    public class AirlineResponceModel : BaseResponceModel
     {
-       
-     
         public string Name { get; set; }
         public string Country { get; set; }
     }

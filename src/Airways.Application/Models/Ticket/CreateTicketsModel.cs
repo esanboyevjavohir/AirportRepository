@@ -10,7 +10,7 @@ public class CreateTicketsModel
     public decimal AdditionalCharge { get; set; }
     DateTime OrderTime { get; set; }
     public int SeatNumber { get; set; }
-    Status status { get; set; }
+    public Status status { get; set; }
     public Guid Reys_id { get; set; }
     public Guid User_id { get; set; }
     public Guid Cllass_id { get; set; }
@@ -19,7 +19,7 @@ public class CreateTicketsModel
 }
 public class CreateTicketResponceModel : BaseResponceModel { }
 
-enum Status
+public enum Status
 {
     Available,
     Sold

@@ -5,6 +5,8 @@ namespace Airways.Application.Services
 {
     public interface IPaymentService
     {
+        Task<PaymentResponceModel> GetByIdAsync(Guid id);
+        Task<List<PaymentResponceModel>> GetAllAsync();
         Task<CreatePaymentResponceModel> CreateAsync(CreatePaymentModel createTodoItemModel,
       CancellationToken cancellationToken = default);
 

@@ -5,6 +5,9 @@ namespace Airways.Application.Services
 {
     public interface IClassService
     {
+        Task<ClassResponceModel> GetByIdAsync(Guid id);
+
+        Task<List<ClassResponceModel>> GetAllAsync();
         Task<CreateClassResponceModel> CreateAsync(CreateCLassModel createTodoItemModel,
       CancellationToken cancellationToken = default);
 

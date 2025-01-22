@@ -19,10 +19,7 @@ public class DataBaseContext : IdentityDbContext<ApplicationUser>
         AppContext.SetSwitch("Npgsql.DisableDateTimeInfinityConversions", true);
     }
 
-    
-    
-
-    public DbSet<Aicraft> Aicrafts { get; set; }
+    public DbSet<Aircraft> Aircrafts { get; set; }
     public DbSet<Airline> Airlines { get; set; }
     public DbSet<Class> Classes { get; set; }
     public DbSet<Order> Orders { get; set; }
@@ -30,7 +27,7 @@ public class DataBaseContext : IdentityDbContext<ApplicationUser>
     public DbSet<PricePolicy> PricesPolicies { get; set; }
     public DbSet<Review> Reviews { get; set; }
     public DbSet<Reys> Reys { get; set; }
-    public DbSet<Tickets> Tickets { get; set; }
+    public DbSet<Ticket> Tickets { get; set; }
     public DbSet<User> AirwaysUser { get; set; }
 
     protected override void OnModelCreating(ModelBuilder builder)

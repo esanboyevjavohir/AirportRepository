@@ -1,4 +1,5 @@
 ﻿using Airways.Application.DTO;
+using Airways.Application.Models;
 using Airways.Application.Services;
 using Airways.DataAccess;
 using Airways.DataAccess.Authentication;
@@ -11,28 +12,50 @@ namespace Airways.API.Controllers
     {
         private readonly IUserService _userService;
         private readonly IJwtTokenHandler _jwtTokenHandler;
+        private readonly IWebHostEnvironment _webHostEnvironment;
 
-        public UserContorller(IUserService userService, IJwtTokenHandler jwtTokenHandler)
+        public UserContorller(IUserService userService, 
+            IJwtTokenHandler jwtTokenHandler,
+            IWebHostEnvironment webHostEnvironment)
         {
             _userService = userService;
             _jwtTokenHandler = jwtTokenHandler;
+            _webHostEnvironment = webHostEnvironment;
         }
 
         public IActionResult Index()
         {
             return View();
         }
-        [HttpGet("GetID/{id}")]
+        [HttpGet("GetByID/{id}")]
         public async Task<IActionResult> GetUser([FromRoute] Guid id)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var res = await _userService.GetByIdAsync(id);
-            return res == null ? NotFound() : Ok(res);
+            try
+            {
+                var res = await _userService.GetByIdAsync(id);
+                return res == null ? NotFound() : Ok(res);
+            }
+            catch (Exception ex)
+            {
+                return NotFound(new {message = ex.Message});
+            }
         }
 
-        [HttpPost("create-user")]
+        [HttpGet("GetAllUser")]
+        public async Task<IActionResult> GetAllUsers()
+        {
+            if(!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            var response = await _userService.GetAllAsync();
+            return response == null ? NotFound() : Ok(response);
+        }
+
+        [HttpPost("Create-User")]
         public async Task<IActionResult> AddUser(UserForCreationDTO userForCreationDTO)
         {
             if (!ModelState.IsValid)
@@ -56,14 +79,21 @@ namespace Airways.API.Controllers
             }
         }
 
-        [HttpPut("update-user/{id}")]
-        public async Task<IActionResult> UpdateUser([FromRoute] Guid id, [FromBody] UserDTO userDTO)
+        [HttpPut("Update-User/{id}")]
+        public async Task<IActionResult> UpdateUser([FromRoute] Guid id, [FromBody] UpdateUserDTO userDTO)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var res = await _userService.UpdateUserAsync(id, userDTO);
-            return res == null ? NotFound() : Ok(res);
+            try
+            {
+                var res = await _userService.UpdateUserAsync(id, userDTO);
+                return res == null ? NotFound() : Ok(res);
+            }
+            catch (Exception ex)
+            {
+                return NotFound(new { message = ex.Message });
+            }
         }
         [HttpPut("Delete/{ID}")]
         public async Task<IActionResult> DeleteUser([FromRoute] Guid ID)
@@ -71,8 +101,15 @@ namespace Airways.API.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var res = await _userService.DeleteUserAsync(ID);
-            return res == null ? NotFound() : Ok(res);
+            try
+            {
+                var res = await _userService.DeleteUserAsync(ID);
+                return res == null ? NotFound() : Ok(res);
+            }
+            catch (Exception ex)
+            {
+                return NotFound(new { message = ex.Message });
+            }
         }
 
     }

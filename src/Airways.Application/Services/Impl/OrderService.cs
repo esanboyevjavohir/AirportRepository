@@ -4,6 +4,8 @@ using Airways.Core.Entity;
 using Airways.DataAccess.Repository;
 using AutoMapper;
 using Airways.Application.Models.Order;
+using Airways.Application.Models.Aicraft;
+using Airways.DataAccess.Repository.Impl;
 
 namespace Airways.Application.Services.Impl
 {
@@ -20,10 +22,17 @@ namespace Airways.Application.Services.Impl
             _mapper = mapper;
         }
 
-        public async Task<IEnumerable<OrderResponceModel>> GetAllByListIdAsync(Guid id,
-            CancellationToken cancellationToken = default)
+        public async Task<OrderResponceModel> GetByIdAsync(Guid id)
         {
-            var todoItems = await _orderRepository.GetAllAsync(ti => ti.Id == id);
+            var aircraft = await _orderRepository.GetFirstAsync(a => a.Id == id);
+            if (aircraft == null) { throw new Exception("Aircraft not found"); }
+
+            return _mapper.Map<OrderResponceModel>(aircraft);
+        }
+
+        public async Task<IEnumerable<OrderResponceModel>> GetAllAsync()
+        {
+            var todoItems = await _orderRepository.GetAllAsync(_ => true);
 
             return _mapper.Map<IEnumerable<OrderResponceModel>>(todoItems);
         }

@@ -12,7 +12,7 @@ namespace Airways.API
             var secretKey = configuration.GetValue<string>("JwtOptions:SecretKey");
 
             var key = Encoding.ASCII.GetBytes(secretKey);
-
+                
             services.AddAuthentication(x =>
             {
                 x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
