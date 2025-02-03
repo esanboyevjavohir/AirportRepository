@@ -1,0 +1,6 @@
+services:
+  airways.api:
+    image: ${DOCKER_REGISTRY-}airwaysapi
+    build:
+      context: .
+      dockerfile: src/Airways.API/Dockerfile

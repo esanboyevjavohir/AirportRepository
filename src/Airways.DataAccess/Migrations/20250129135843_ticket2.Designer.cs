@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Airways.DataAccess.Migrations
 {
     [DbContext(typeof(DataBaseContext))]
-    [Migration("20250120140933_bilet1")]
-    partial class bilet1
+    [Migration("20250129135843_ticket2")]
+    partial class ticket2
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -133,6 +133,26 @@ namespace Airways.DataAccess.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Classes");
+                });
+
+            modelBuilder.Entity("Airways.Core.Entity.Log", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime?>("CreatedOn")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<string>("Message")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("log");
                 });
 
             modelBuilder.Entity("Airways.Core.Entity.Order", b =>
@@ -310,13 +330,13 @@ namespace Airways.DataAccess.Migrations
                     b.Property<DateTime>("ActualDepartureTime")
                         .HasColumnType("timestamp without time zone");
 
-                    b.Property<Guid>("AircraftId")
+                    b.Property<Guid?>("AircraftId")
                         .HasColumnType("uuid");
 
                     b.Property<Guid>("Aircraft_id")
                         .HasColumnType("uuid");
 
-                    b.Property<Guid>("AirlineId")
+                    b.Property<Guid?>("AirlineId")
                         .HasColumnType("uuid");
 
                     b.Property<Guid>("Airline_id")
@@ -754,15 +774,11 @@ namespace Airways.DataAccess.Migrations
                 {
                     b.HasOne("Airways.Core.Entity.Aircraft", "Aircraft")
                         .WithMany()
-                        .HasForeignKey("AircraftId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("AircraftId");
 
                     b.HasOne("Airways.Core.Entity.Airline", "Airline")
                         .WithMany()
-                        .HasForeignKey("AirlineId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("AirlineId");
 
                     b.Navigation("Aircraft");
 

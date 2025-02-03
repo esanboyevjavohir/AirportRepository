@@ -8,8 +8,8 @@ namespace Airways.Core.Entity
         public string Description { get; set; }
         public string Model { get; set; }
         public int SeatCapacity { get; set; }
-        public  Airline? Airline { get; set; }
         public Guid Airline_id { get; set; }
+        public  Airline? Airline { get; set; }
         public List<Reys>? Reys = new List<Reys>();
         public string? CreatedBy { get; set; }
         public DateTime? CreatedOn { get; set; }

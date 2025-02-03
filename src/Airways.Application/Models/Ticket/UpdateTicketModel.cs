@@ -4,7 +4,6 @@ namespace Airways.Application.Models.Ticket
 {
     public class UpdateTicketModel
     {
-      
         public double price { get; set; }
         public decimal MaxWeight { get; set; }
         public decimal AdditionalCharge { get; set; }

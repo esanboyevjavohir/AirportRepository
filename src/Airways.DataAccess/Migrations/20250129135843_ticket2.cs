@@ -7,7 +7,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Airways.DataAccess.Migrations
 {
     /// <inheritdoc />
-    public partial class bilet1 : Migration
+    public partial class ticket2 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -87,6 +87,20 @@ namespace Airways.DataAccess.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "log",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Message = table.Column<string>(type: "text", nullable: false),
+                    CreatedOn = table.Column<DateTime>(type: "timestamp without time zone", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_log", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "PricesPolicies",
                 columns: table => new
                 {
@@ -112,8 +126,8 @@ namespace Airways.DataAccess.Migrations
                     Description = table.Column<string>(type: "text", nullable: false),
                     Model = table.Column<string>(type: "text", nullable: false),
                     SeatCapacity = table.Column<int>(type: "integer", nullable: false),
-                    AirlineId = table.Column<Guid>(type: "uuid", nullable: true),
                     Airline_id = table.Column<Guid>(type: "uuid", nullable: false),
+                    AirlineId = table.Column<Guid>(type: "uuid", nullable: true),
                     CreatedBy = table.Column<string>(type: "text", nullable: true),
                     CreatedOn = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
                     UpdatedBy = table.Column<string>(type: "text", nullable: true),
@@ -246,10 +260,10 @@ namespace Airways.DataAccess.Migrations
                     ScheduledDepartureTime = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     ActualDepartureTime = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     ScheduledArrivalTime = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
-                    AirlineId = table.Column<Guid>(type: "uuid", nullable: false),
                     Airline_id = table.Column<Guid>(type: "uuid", nullable: false),
-                    AircraftId = table.Column<Guid>(type: "uuid", nullable: false),
+                    AirlineId = table.Column<Guid>(type: "uuid", nullable: true),
                     Aircraft_id = table.Column<Guid>(type: "uuid", nullable: false),
+                    AircraftId = table.Column<Guid>(type: "uuid", nullable: true),
                     CreatedBy = table.Column<string>(type: "text", nullable: true),
                     CreatedOn = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
                     UpdatedBy = table.Column<string>(type: "text", nullable: true),
@@ -262,14 +276,12 @@ namespace Airways.DataAccess.Migrations
                         name: "FK_Reys_Aircrafts_AircraftId",
                         column: x => x.AircraftId,
                         principalTable: "Aircrafts",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Reys_Airlines_AirlineId",
                         column: x => x.AirlineId,
                         principalTable: "Airlines",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -306,10 +318,10 @@ namespace Airways.DataAccess.Migrations
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     Rating = table.Column<int>(type: "integer", nullable: false),
                     Comment = table.Column<string>(type: "text", nullable: false),
-                    UserId = table.Column<Guid>(type: "uuid", nullable: false),
                     User_id = table.Column<Guid>(type: "uuid", nullable: false),
-                    ReysId = table.Column<Guid>(type: "uuid", nullable: false),
+                    UserId = table.Column<Guid>(type: "uuid", nullable: false),
                     Reys_id = table.Column<Guid>(type: "uuid", nullable: false),
+                    ReysId = table.Column<Guid>(type: "uuid", nullable: false),
                     CreatedBy = table.Column<string>(type: "text", nullable: true),
                     CreatedOn = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
                     UpdatedBy = table.Column<string>(type: "text", nullable: true),
@@ -338,10 +350,10 @@ namespace Airways.DataAccess.Migrations
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     TotalPrice = table.Column<decimal>(type: "numeric", nullable: false),
-                    UserId = table.Column<Guid>(type: "uuid", nullable: false),
                     User_id = table.Column<Guid>(type: "uuid", nullable: false),
-                    TicketId = table.Column<Guid>(type: "uuid", nullable: false),
+                    UserId = table.Column<Guid>(type: "uuid", nullable: false),
                     Ticket_id = table.Column<Guid>(type: "uuid", nullable: false),
+                    TicketId = table.Column<Guid>(type: "uuid", nullable: false),
                     CreatedBy = table.Column<string>(type: "text", nullable: true),
                     CreatedOn = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
                     UpdatedBy = table.Column<string>(type: "text", nullable: true),
@@ -366,10 +378,10 @@ namespace Airways.DataAccess.Migrations
                     Amount = table.Column<decimal>(type: "numeric", nullable: false),
                     PayStatus = table.Column<int>(type: "integer", nullable: false),
                     CardType = table.Column<int>(type: "integer", nullable: false),
-                    UserId = table.Column<Guid>(type: "uuid", nullable: false),
                     User_id = table.Column<Guid>(type: "uuid", nullable: false),
-                    OrderId = table.Column<Guid>(type: "uuid", nullable: false),
+                    UserId = table.Column<Guid>(type: "uuid", nullable: false),
                     Order_id = table.Column<Guid>(type: "uuid", nullable: false),
+                    OrderId = table.Column<Guid>(type: "uuid", nullable: false),
                     CreatedBy = table.Column<string>(type: "text", nullable: true),
                     CreatedOn = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
                     UpdatedBy = table.Column<string>(type: "text", nullable: true),
@@ -402,14 +414,14 @@ namespace Airways.DataAccess.Migrations
                     OrderTime = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     SeatNumber = table.Column<int>(type: "integer", nullable: false),
                     Status = table.Column<int>(type: "integer", nullable: false),
-                    ReysId = table.Column<Guid>(type: "uuid", nullable: false),
                     Reys_id = table.Column<Guid>(type: "uuid", nullable: false),
-                    UserId = table.Column<Guid>(type: "uuid", nullable: false),
+                    ReysId = table.Column<Guid>(type: "uuid", nullable: false),
                     User_id = table.Column<Guid>(type: "uuid", nullable: false),
-                    ClassId = table.Column<Guid>(type: "uuid", nullable: false),
+                    UserId = table.Column<Guid>(type: "uuid", nullable: false),
                     Class_id = table.Column<Guid>(type: "uuid", nullable: false),
-                    PaymentId = table.Column<Guid>(type: "uuid", nullable: false),
+                    ClassId = table.Column<Guid>(type: "uuid", nullable: false),
                     Payment_id = table.Column<Guid>(type: "uuid", nullable: false),
+                    PaymentId = table.Column<Guid>(type: "uuid", nullable: false),
                     ReservationExpiresOn = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
                     CreatedBy = table.Column<string>(type: "text", nullable: true),
                     CreatedOn = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
@@ -610,6 +622,9 @@ namespace Airways.DataAccess.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUserTokens");
+
+            migrationBuilder.DropTable(
+                name: "log");
 
             migrationBuilder.DropTable(
                 name: "PricesPolicies");

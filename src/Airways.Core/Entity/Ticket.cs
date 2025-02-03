@@ -9,14 +9,14 @@ namespace Airways.Core.Entity
         public DateTime OrderTime { get; set; }
         public int SeatNumber { get; set; }
         public Status Status { get; set; } = Status.Available;
-        public Reys Reys { get; set; }
         public Guid Reys_id { get; set; }
-        public User User { get; set; }
+        public Reys Reys { get; set; }
         public Guid User_id { get; set; }
-        public Class Class { get; set; }
+        public User User { get; set; }
         public Guid Class_id { get; set; }
-        public Payment Payment { get; set; }
+        public Class Class { get; set; }
         public Guid Payment_id { get; set; }
+        public Payment Payment { get; set; }
         public DateTime? ReservationExpiresOn { get; set; }
         public string? CreatedBy { get; set; }
         public DateTime? CreatedOn { get; set; }

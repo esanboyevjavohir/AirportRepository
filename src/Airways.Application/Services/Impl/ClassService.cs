@@ -14,7 +14,6 @@ namespace Airways.Application.Services.Impl
         private readonly IMapper _mapper;
         private readonly IClassRepository _classRepository;
 
-
         public ClassService(IClassRepository classRepository,
             IMapper mapper)
         {
@@ -69,14 +68,15 @@ namespace Airways.Application.Services.Impl
             };
         }
 
-        public async Task<BaseResponceModel> DeleteAsync(Guid id, CancellationToken cancellationToken = default)
+        public async Task<bool> DeleteAsync(Guid id)
         {
             var todoItem = await _classRepository.GetFirstAsync(ti => ti.Id == id);
 
-            return new BaseResponceModel
-            {
-                Id = (await _classRepository.DeleteAsync(todoItem)).Id
-            };
+            if(todoItem == null) return false;
+
+            await _classRepository.DeleteAsync(todoItem);
+
+            return true;
         }
     }
 }

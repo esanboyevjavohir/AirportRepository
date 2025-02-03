@@ -4,11 +4,12 @@ using AutoMapper;
 
 namespace Airways.Application.MappingProfiles
 {
-    public class TicketMaping:Profile
+    public class TicketMaping : Profile
     {
         public TicketMaping()
         {
             CreateMap<CreateTicketsModel, Ticket>();
+
             CreateMap<UpdateTicketModel, Ticket>().ReverseMap();
 
             CreateMap<Ticket, TicketResponceModel>();

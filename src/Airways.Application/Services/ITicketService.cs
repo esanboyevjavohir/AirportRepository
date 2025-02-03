@@ -11,7 +11,7 @@ namespace Airways.Application.Services
         Task<CreateTicketResponceModel> CreateAsync(CreateTicketsModel createTodoItemModel,
       CancellationToken cancellationToken = default);
 
-        Task<BaseResponceModel> DeleteAsync(Guid id, CancellationToken cancellationToken = default);
+        Task<bool> DeleteAsync(Guid id);
 
         Task<IEnumerable<TicketResponceModel>> 
             GetAllByListIdAsync(Guid id, CancellationToken cancellationToken = default);

@@ -4,7 +4,6 @@ namespace Airways.Application.Models.Reys
 {
     public class UpdateReysModel
     {
-       
         public int TicketCount { get; set; }
         public string DepartureCity { get; set; }
         public string ArrivalCity { get; set; }
@@ -15,5 +14,4 @@ namespace Airways.Application.Models.Reys
         public Guid Aircraft_id { get; set; }
     }
     public class UpdateReysResponceModel : BaseResponceModel { }
-
 }

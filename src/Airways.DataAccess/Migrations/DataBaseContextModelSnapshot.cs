@@ -132,6 +132,26 @@ namespace Airways.DataAccess.Migrations
                     b.ToTable("Classes");
                 });
 
+            modelBuilder.Entity("Airways.Core.Entity.Log", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime?>("CreatedOn")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<string>("Message")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("log");
+                });
+
             modelBuilder.Entity("Airways.Core.Entity.Order", b =>
                 {
                     b.Property<Guid>("Id")

@@ -77,7 +77,7 @@ namespace Airways.API.Controllers
             try
             {
                 var result = await _airlineService.DeleteAsync(id);
-                return Ok(ApiResult<BaseResponceModel>.Success(result));
+                return Ok(ApiResult<bool>.Success(result));
             }
             catch(Exception ex)
             {

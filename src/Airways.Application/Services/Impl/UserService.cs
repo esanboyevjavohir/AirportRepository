@@ -61,7 +61,7 @@ namespace Airways.Application.Services.Impl
             }).ToList();
         }
 
-        public async Task<UserForCreationDTO> AddUserAsync(UserForCreationDTO userForCreationDTO)
+        public async Task<User> AddUserAsync(UserForCreationDTO userForCreationDTO)
         {
             var validationResult = await _userValidator.ValidateAsync(userForCreationDTO);
             if(!validationResult.IsValid)
@@ -125,7 +125,6 @@ namespace Airways.Application.Services.Impl
             user.Password = _passwordHasher.Encrypt(
                 password: userDto.Password,
                 salt: randomSalt);
-
           
             await _usersRepo.UpdateAsync(user);
 
@@ -184,9 +183,9 @@ namespace Airways.Application.Services.Impl
             return await Task.Run(() => user.Password == password);
         }
 
-        private UserForCreationDTO MapToDTO(User user)
+        private User MapToDTO(User user)
         {
-            return new UserForCreationDTO
+            return new User
             {
                 Name = user.Name,
                 Email = user.Email,

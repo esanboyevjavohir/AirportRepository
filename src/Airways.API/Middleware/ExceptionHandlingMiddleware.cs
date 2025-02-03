@@ -1,5 +1,6 @@
 ﻿using Airways.Application.Exceptions;
 using Airways.Application.Models;
+using Airways.Core.Common;
 using Airways.Core.Exceptions;
 using Newtonsoft.Json;
 
@@ -51,7 +52,7 @@ public class ExceptionHandlerMiddlewear
             _ => code
         };
 
-        var result = JsonConvert.SerializeObject(ApiResult<string>.Failure(errors));
+        var result = JsonConvert.SerializeObject(ApiResult<string>.Failure(new Errorr(code.ToString(), code.ToString())));
 
         context.Response.ContentType = "application/json";
         context.Response.StatusCode = code;

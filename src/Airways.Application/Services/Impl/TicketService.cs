@@ -49,7 +49,6 @@ namespace Airways.Application.Services.Impl
         {
             var todoItem = _mapper.Map<Ticket>(createTodoItemModel);
 
-
             return new CreateTicketResponceModel
             {
                 Id = (await _ticketRepository.AddAsync(todoItem)).Id
@@ -69,14 +68,15 @@ namespace Airways.Application.Services.Impl
             };
         }
 
-        public async Task<BaseResponceModel> DeleteAsync(Guid id, CancellationToken cancellationToken = default)
+        public async Task<bool> DeleteAsync(Guid id)
         {
             var todoItem = await _ticketRepository.GetFirstAsync(ti => ti.Id == id);
 
-            return new BaseResponceModel
-            {
-                Id = (await _ticketRepository.DeleteAsync(todoItem)).Id
-            };
+            if(todoItem == null) return false;
+
+            await _ticketRepository.DeleteAsync(todoItem);
+
+            return true;
         }
     }
 }

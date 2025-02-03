@@ -5,6 +5,7 @@ using Airways.Core.Entity;
 using Airways.DataAccess.Repository;
 using Airways.DataAccess.Repository.Impl;
 using AutoMapper;
+using System.Linq.Expressions;
 
 namespace Airways.Application.Services.Impl
 {
@@ -12,12 +13,11 @@ namespace Airways.Application.Services.Impl
     {
         private readonly IMapper _mapper;
         private readonly IAirlineRepository _airlineRepository;
-      
 
         public AirlineService(IAirlineRepository airlineRepository,
             IMapper mapper)
         {
-            _airlineRepository = airlineRepository;
+            _airlineRepository = airlineRepository;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
             _mapper = mapper;
         }
 
@@ -54,8 +54,7 @@ namespace Airways.Application.Services.Impl
             };
         }
 
-        public async Task<UpdateAirlineResponceModel> UpdateAsync(Guid id, UpdateAirlineModel updateTodoItemModel,
-            CancellationToken cancellationToken = default)
+        public async Task<UpdateAirlineResponceModel> UpdateAsync(Guid id, UpdateAirlineModel updateTodoItemModel)
         {
             var todoItem = await _airlineRepository.GetFirstAsync(ti => ti.Id == id);
 
@@ -67,14 +66,15 @@ namespace Airways.Application.Services.Impl
             };
         }
 
-        public async Task<BaseResponceModel> DeleteAsync(Guid id, CancellationToken cancellationToken = default)
+        public async Task<bool> DeleteAsync(Guid id)
         {
             var todoItem = await _airlineRepository.GetFirstAsync(ti => ti.Id == id);
 
-            return new BaseResponceModel
-            {
-                Id = (await _airlineRepository.DeleteAsync(todoItem)).Id
-            };
+            if(todoItem == null) return false;
+
+            await _airlineRepository.DeleteAsync(todoItem);
+
+            return true;
         }
     }
 }
