@@ -1,4 +1,5 @@
 ﻿using Airways.Core.Common;
+using Airways.Core.Entity;
 using Airways.Core.Exceptions;
 using Airways.DataAccess.Persistence;
 using Microsoft.EntityFrameworkCore;
@@ -8,13 +9,18 @@ namespace Airways.DataAccess.Repository.Impl
 {
     public class BaseRepository<TEntity> : IBaseRepository<TEntity> where TEntity : BaseEntity
     {
-        protected readonly DataBaseContext Context;
+        private readonly DataBaseContext Context;
         protected readonly DbSet<TEntity> DbSet;
 
         protected BaseRepository(DataBaseContext context)
         {
             Context = context;
             DbSet = context.Set<TEntity>();
+        }
+
+        public async Task<User> GetByIdAsync(Guid id)
+        {
+            return await Context.AirwaysUser.FindAsync(id);
         }
 
         public async Task<TEntity> AddAsync(TEntity entity)

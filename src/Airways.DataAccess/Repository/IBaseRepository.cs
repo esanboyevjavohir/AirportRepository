@@ -1,4 +1,5 @@
 ﻿using Airways.Core.Common;
+using Airways.Core.Entity;
 using System.Linq.Expressions;
 
 namespace Airways.DataAccess.Repository
@@ -7,6 +8,7 @@ namespace Airways.DataAccess.Repository
     {
         Task<TEntity> GetFirstAsync(Expression<Func<TEntity, bool>> predicate);
 
+        Task<User> GetByIdAsync(Guid entity);
         Task<List<TEntity>> GetAllAsync(Expression<Func<TEntity, bool>> predicate);
         IQueryable<TEntity> GetAll();
         IEnumerable<TEntity> GetAllAsEnumurable();

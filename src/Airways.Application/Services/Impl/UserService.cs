@@ -57,7 +57,7 @@ namespace Airways.Application.Services.Impl
                 Name = user.Name,
                 Email = user.Email,
                 Address = user.Address,
-                Id= user.Id
+                Id = user.Id
             }).ToList();
         }
 
