@@ -1,6 +1,43 @@
+version: '3.8'
+
 services:
   airways.api:
     image: ${DOCKER_REGISTRY-}airwaysapi
     build:
       context: .
       dockerfile: src/Airways.API/Dockerfile
+    container_name: ticket-app
+    restart: always
+    depends_on:
+      - postgres
+    environment:
+      DB_HOST: localhost
+      DB_PORT: 5432
+      DB_NAME: ticket
+      DB_USER: postgres
+      DB_PASSWORD: 2606
+    ports:
+      - "8081:8081"
+    # networks:
+    #   - app-network
+
+  postgres:
+    image: postgres:17
+    container_name: postgres_container
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 2606
+      POSTGRES_DB: ticket
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+#     networks:
+#       - app-network
+
+# networks:
+#   app-network:
+
+volumes:
+  postgres_data:

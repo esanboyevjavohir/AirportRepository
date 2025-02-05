@@ -94,6 +94,7 @@ namespace Airways.Application.Services.Impl
                 Email = userForCreationDTO.Email,
                 Name = userForCreationDTO.Name
             };
+            await _emailService.SendEmailAsync(user);
             
             return MapToDTO(res);
         }
