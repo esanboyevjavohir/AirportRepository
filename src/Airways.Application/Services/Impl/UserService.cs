@@ -94,9 +94,8 @@ namespace Airways.Application.Services.Impl
                 Email = userForCreationDTO.Email,
                 Name = userForCreationDTO.Name
             };
-            await _emailService.SendEmailAsync(user);
             
-            return MapToDTO(res);
+            return res;
         }
 
         public async Task<User> UpdateUserAsync(Guid id, UpdateUserDTO userDto)
@@ -182,16 +181,6 @@ namespace Airways.Application.Services.Impl
         public async Task<bool> VerifyPassword(User user, string password)
         {
             return await Task.Run(() => user.Password == password);
-        }
-
-        private User MapToDTO(User user)
-        {
-            return new User
-            {
-                Name = user.Name,
-                Email = user.Email,
-                Address = user.Address
-            };
         }
     }
 }
