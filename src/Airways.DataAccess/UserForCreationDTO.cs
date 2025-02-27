@@ -14,7 +14,7 @@ namespace Airways.DataAccess
         [EmailAddress(ErrorMessage = "Email manzil noto'g'ri formatda")]
         public string? Email { get; set; }
         [DefaultValue("")]
-        public string? Address { get; set; }
+        public string? Address { get; set; }    
         public Role Role { get; set; }
         [DefaultValue("")]
         public string? Password { get; set; }
