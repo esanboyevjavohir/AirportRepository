@@ -12,8 +12,8 @@ namespace Airways.Application.Services
 
         Task<bool> DeleteAsync(Guid id);
 
-        Task<IEnumerable<AicraftResponceModel>>
-            GetAllByListIdAsync(Guid id, CancellationToken cancellationToken = default);
+        //Task<IEnumerable<AicraftResponceModel>>
+        //    GetAllByListIdAsync(Guid id, CancellationToken cancellationToken = default);
 
         Task<UpdateAicraftResponceModel> UpdateAsync(Guid id, UpdateAicraftModel updateTodoItemModel,
             CancellationToken cancellationToken = default);

@@ -16,7 +16,7 @@ namespace Airways.DataAccess.Repository.Impl
         {
             Context = context;
             DbSet = context.Set<TEntity>();
-        }
+        }   
 
         public async Task<User> GetByIdAsync(Guid id)
         {

@@ -32,14 +32,14 @@ namespace Airways.Application.Services.Impl
             return _mapper.Map<List<AicraftResponceModel>>(res);
         }
 
-        public async Task<IEnumerable<AicraftResponceModel>> GetAllByListIdAsync(Guid id,
+       /* public async Task<IEnumerable<AicraftResponceModel>> GetAllByListIdAsync(Guid id,
             CancellationToken cancellationToken = default)
         {
             var todoItems = await _aicraftrepository.GetAllAsync(ti => ti.Airline.Id == id);
 
 
             return _mapper.Map<IEnumerable<AicraftResponceModel>>(todoItems);
-        }
+        }*/
 
         public async Task<CreateAicraftResponceModel> CreateAsync(CreateAircraftModel createTodoItemModel,
             CancellationToken cancellationToken = default)

@@ -48,7 +48,6 @@ namespace Airways.Application.Services.Impl
         {
             var todoItem = _mapper.Map<Class>(createTodoItemModel);
 
-
             return new CreateClassResponceModel
             {
                 Id = (await _classRepository.AddAsync(todoItem)).Id
