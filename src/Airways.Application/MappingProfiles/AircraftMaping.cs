@@ -4,7 +4,7 @@ using AutoMapper;
 
 namespace Airways.Application.MappingProfiles
 {
-    public class AircraftMaping:Profile
+    public class AircraftMaping : Profile
     {
         public AircraftMaping()
         {

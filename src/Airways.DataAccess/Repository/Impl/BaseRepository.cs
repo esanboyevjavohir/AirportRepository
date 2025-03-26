@@ -68,5 +68,4 @@ namespace Airways.DataAccess.Repository.Impl
             return entity;
         }
     }
-
 }
